@@ -9,22 +9,18 @@ channels:
   - channelName: mychannel
     # the chaincodeIDs of all the fabric chaincodes in caliper-benchmarks
     contracts:
-    - id: fabcar
-    - id: fixed-asset
-    - id: marbles
-    - id: simple
-    - id: smallbank
+      - id: assetcc
 
 organizations:
   - mspid: Org1MSP
     # Identities come from cryptogen created material for test-network
     identities:
       certificates:
-      - name: 'User1'
-        clientPrivateKey:
-          path: '../fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk'
-        clientSignedCert:
-          path: '../fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem'
+        - name: 'dana'
+          clientPrivateKey:
+            path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/wallet/danaprivkey'
+          clientSignedCert:
+            path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/wallet/dana-cert.pem'
     connectionProfile:
-      path: '../fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/connection-org1.yaml'
-      discover: true
+      path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/try-k8/caliperConfig.yaml'
+      discover: false
