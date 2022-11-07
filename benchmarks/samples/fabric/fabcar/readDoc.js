@@ -19,14 +19,14 @@ const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
 /**
  * Workload module for the benchmark round.
  */
-class QueryAllCarsWorkload extends WorkloadModuleBase {
+class QueryCarWorkload extends WorkloadModuleBase {
     /**
      * Initializes the workload module instance.
      */
     constructor() {
         super();
-        this.startingKey = '';
-        this.endingKey = '';
+        this.txIndex = 0;
+        this.limitIndex = 0;
     }
 
     /**
@@ -42,8 +42,7 @@ class QueryAllCarsWorkload extends WorkloadModuleBase {
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
         await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
 
-        this.startingKey = 'Client' + this.workerIndex + '_CAR' + this.roundArguments.startKey;
-        this.endingKey = 'Client' + this.workerIndex + '_CAR' + this.roundArguments.endKey;
+        this.limitIndex = this.roundArguments.assets;
     }
 
     /**
@@ -51,14 +50,21 @@ class QueryAllCarsWorkload extends WorkloadModuleBase {
      * @return {Promise<TxStatus[]>}
      */
     async submitTransaction() {
+        this.txIndex++;
+        let id = 'Client' + this.workerIndex + '_DOC' + this.txIndex.toString();
+
         let args = {
-            contractId: 'fabcar',
-            contractVersion: 'v1',
-            contractFunction: 'queryAllCars',
-            contractArguments: [this.startingKey, this.endingKey],
-            timeout: 60,
+            contractId: 'assetcc',
+            contractVersion: 'v4.6',
+            contractFunction: 'readDoc',
+            contractArguments: [id],
+            timeout: 30,
             readOnly: true
         };
+
+        if (this.txIndex === this.limitIndex) {
+            this.txIndex = 0;
+        }
 
         await this.sutAdapter.sendRequests(args);
     }
@@ -69,7 +75,7 @@ class QueryAllCarsWorkload extends WorkloadModuleBase {
  * @return {WorkloadModuleInterface}
  */
 function createWorkloadModule() {
-    return new QueryAllCarsWorkload();
+    return new QueryCarWorkload();
 }
 
 module.exports.createWorkloadModule = createWorkloadModule;

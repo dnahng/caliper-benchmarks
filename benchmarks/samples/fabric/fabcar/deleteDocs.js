@@ -19,14 +19,14 @@ const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
 /**
  * Workload module for the benchmark round.
  */
-class QueryCarWorkload extends WorkloadModuleBase {
+class QueryAllCarsWorkload extends WorkloadModuleBase {
     /**
      * Initializes the workload module instance.
      */
     constructor() {
         super();
         this.txIndex = 0;
-        this.limitIndex = 0;
+        // this.limitIndex = 0;
     }
 
     /**
@@ -43,6 +43,7 @@ class QueryCarWorkload extends WorkloadModuleBase {
         await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
 
         this.limitIndex = this.roundArguments.assets;
+
     }
 
     /**
@@ -51,20 +52,20 @@ class QueryCarWorkload extends WorkloadModuleBase {
      */
     async submitTransaction() {
         this.txIndex++;
-        let carNumber = 'Client' + this.workerIndex + '_CAR' + this.txIndex.toString();
+        let id = 'Client' + this.workerIndex + '_DOC' + this.txIndex.toString();
 
         let args = {
-            contractId: 'fabcar',
-            contractVersion: 'v1',
-            contractFunction: 'queryCar',
-            contractArguments: [carNumber],
-            timeout: 30,
-            readOnly: true
+            contractId: 'assetcc',
+            contractVersion: 'v4.6',
+            contractFunction: 'deleteDoc',
+            contractArguments: [id],
+            timeout: 60,
+            // readOnly: true
         };
 
-        if (this.txIndex === this.limitIndex) {
-            this.txIndex = 0;
-        }
+        // if (this.txIndex === this.limitIndex) {
+        //     this.txIndex = 0;
+        // }
 
         await this.sutAdapter.sendRequests(args);
     }
@@ -75,7 +76,7 @@ class QueryCarWorkload extends WorkloadModuleBase {
  * @return {WorkloadModuleInterface}
  */
 function createWorkloadModule() {
-    return new QueryCarWorkload();
+    return new QueryAllCarsWorkload();
 }
 
 module.exports.createWorkloadModule = createWorkloadModule;
