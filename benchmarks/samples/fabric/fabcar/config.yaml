@@ -5,7 +5,7 @@ test:
     - label: Create a document.
       # 5000 transactions should create around 1000 cars per worker but not guaranteed
       # so need to set asset limits to less than 1000 for the other tests
-      txNumber: 2000
+      txNumber: 4000
       rateControl:
         type: fixed-load
         opts:
@@ -13,7 +13,7 @@ test:
       workload:
         module: benchmarks/samples/fabric/fabcar/createDoc.js
     - label: Update document.
-      txDuration: 20
+      txDuration: 30
       rateControl:
         type: fixed-load
         opts:
@@ -23,7 +23,7 @@ test:
         arguments:
           assets: 500
     - label: Read a document's version history.
-      txDuration: 20
+      txDuration: 30
       rateControl:
         type: fixed-load
         opts:
@@ -33,7 +33,7 @@ test:
         arguments:
           assets: 500
     - label: Delete a document.
-      txDuration: 20
+      txDuration: 30
       rateControl:
         type: fixed-load
         opts:
