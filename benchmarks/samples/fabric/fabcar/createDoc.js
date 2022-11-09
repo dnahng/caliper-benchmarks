@@ -41,7 +41,7 @@ class CreateCarWorkload extends WorkloadModuleBase {
      */
     async submitTransaction() {
         this.txIndex++;
-        let id = 'Client' + this.workerIndex + '_DOC' + this.txIndex.toString();
+        let id = 'Student' + this.workerIndex + '-_DOC' + this.txIndex.toString();
         let fileName = file[Math.floor(Math.random() * file.length)];
         let fileType = type[Math.floor(Math.random() * type.length)];
         let fileSize = Math.floor(Math.random());

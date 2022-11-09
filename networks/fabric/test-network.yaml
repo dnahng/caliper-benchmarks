@@ -6,7 +6,7 @@ caliper:
 
 channels:
   # channelName of mychannel matches the name of the channel created by test network
-  - channelName: mychannel
+  - channelName: demochannel
     # the chaincodeIDs of all the fabric chaincodes in caliper-benchmarks
     contracts:
       - id: assetcc
@@ -18,9 +18,9 @@ organizations:
       certificates:
         - name: 'dana'
           clientPrivateKey:
-            path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/wallet/danaprivkey'
+            path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/cluster/wallet/danaprivkey'
           clientSignedCert:
-            path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/wallet/dana-cert.pem'
+            path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/cluster/wallet/dana-cert.pem'
     connectionProfile:
-      path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/try-k8/caliperConfig.yaml'
+      path: '/Users/danafayehuang/Desktop/College Thingz/Thesis Code Repo/FiLedger/network/cluster/caliperConfig.yaml'
       discover: false

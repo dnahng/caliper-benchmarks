@@ -26,7 +26,7 @@ class QueryAllCarsWorkload extends WorkloadModuleBase {
     constructor() {
         super();
         this.txIndex = 0;
-        // this.limitIndex = 0;
+        this.limitIndex = 0;
     }
 
     /**
@@ -52,7 +52,7 @@ class QueryAllCarsWorkload extends WorkloadModuleBase {
      */
     async submitTransaction() {
         this.txIndex++;
-        let id = 'Client' + this.workerIndex + '_DOC' + this.txIndex.toString();
+        let id = 'Student' + this.workerIndex + '-_DOC' + this.txIndex.toString();
 
         let args = {
             contractId: 'assetcc',
@@ -63,9 +63,9 @@ class QueryAllCarsWorkload extends WorkloadModuleBase {
             // readOnly: true
         };
 
-        // if (this.txIndex === this.limitIndex) {
-        //     this.txIndex = 0;
-        // }
+        if (this.txIndex === this.limitIndex) {
+            this.txIndex = 0;
+        }
 
         await this.sutAdapter.sendRequests(args);
     }
